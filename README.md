@@ -1,1 +1,2 @@
 # 5UTL
+5UTL stands for "5' untranslated region" or "5' UTR". It refers to the region of a messenger RNA (mRNA) molecule that is located upstream (towards the 5' end) of the coding sequence or the start codon. The 5' UTR is not translated into protein but plays important regulatory roles in gene expression, such as controlling mRNA stability, translation efficiency, and localization. It often contains regulatory elements, such as binding sites for RNA-binding proteins or microRNAs, that influence the post-transcriptional regulation of gene expression.
