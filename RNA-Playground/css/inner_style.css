@@ -1,0 +1,727 @@
+/*
+University of Freiburg WS 2017/2018
+Chair for Bioinformatics
+Supervisor: Martin Raden
+Author: Alexander Mattheis
+*/
+
+/* HINT: alphabetically ordered (also within definitions) */
+
+/*---- TAG STYLING ----*/
+code {
+    white-space: pre;
+}
+
+form input {
+    user-focus: ignore;
+}
+
+input[type="number"] {
+    width: 35px;
+}
+
+input[type="text"] {
+    text-transform: uppercase;
+}
+
+label {
+    display: block; /* or text-align won't work*/
+    text-align: left;
+}
+
+small {
+    font-weight: normal;
+}
+
+table {
+    border-collapse: collapse;
+    display: inline-block;
+    margin: 0;
+    text-align: center;
+}
+
+/* property values taken from project https://github.com/BackofenLab/RNA-Playground */
+td {
+    /*
+    bug fix for Firefox and Microsoft Browsers:
+    https://bugzilla.mozilla.org/show_bug.cgi?id=688556
+    https://bugzilla.mozilla.org/show_bug.cgi?id=995263
+    https://stackoverflow.com/questions/7517127/
+    borders-not-shown-in-firefox-with-border-collapse-on-table-position-relative-o
+    */
+    background-clip: padding-box;
+    background-color: #FCFCFB;
+    border: 1px solid #a0a0a0;
+    color: gray;
+}
+
+/* property values taken from project https://github.com/BackofenLab/RNA-Playground */
+th {
+    background-color: #F3F4F1;
+    border: 1px solid #a0a0a0;
+    color: gray;
+}
+
+/*---- CLASS STYLING ----*/
+.add_remove {
+    height: 22px;
+    padding: 0;
+    text-align: center;
+    width: 22px;
+}
+
+.alignment {
+    float: left;
+    margin-bottom: 10px;
+}
+
+.ancillary_output {
+    clear: left;
+    float: left;
+}
+
+/* HINT: to avoid errors all pictures have to be imported as classes whether they are unique */
+.arrows_d, .arrows_l, .arrows_t {
+    background: url(../inner_sprites.png) no-repeat;
+}
+
+.arrows_d, .arrows_l, .arrows_t {
+    height: 32px;
+    left: -10px;
+    pointer-events: none; /* shouldn't work on IE lower 11 */
+    position: absolute;
+    top: -8px;
+    width: 42px;
+}
+
+.arrows_d { /* diagonal */
+    background-position: 0 0;
+}
+
+.arrows_l { /* left */
+    background-position: 0 -38px;
+}
+
+.arrows_t { /* top */
+    background-position: 0 -73px;
+}
+
+.calculation, .calculation_horizontal, .calculation_vertical,
+.calculation_1, .calculation_2, .calculation_3, .calculation_4, .calculation_5,
+.distances {
+    border: solid 1px #a0a0a0;
+    border-spacing: 0;
+    border-width: 0 1px 0 0;
+}
+
+/* property values taken from project https://github.com/BackofenLab/RNA-Playground */
+.calculation td, .calculation th,
+.calculation_horizontal td, .calculation_horizontal th,
+.calculation_vertical td, .calculation_vertical th,
+.calculation_1 td, .calculation_1 th,
+.calculation_2 td, .calculation_2 th,
+.calculation_3 td, .calculation_3 th,
+.calculation_4 td, .calculation_4 th,
+.calculation_5 td, .calculation_5 th,
+.distances td, .distances th {
+    border: solid 1px #a0a0a0;
+    border-width: 1px 0 1px 1px;
+    /*
+    min- and max values avoid cell shrinking when the table is growing
+     */
+    height: 24px;
+    max-height: 24px;
+    max-width: 32px;
+    min-height: 24px;
+    min-width: 32px;
+    width: 32px;
+}
+
+.column {
+    display: inline-block;
+    text-align: left;
+    width: 180px;
+}
+
+.csv_data {
+    height: 97px;
+    width: 224px;
+    overflow: auto;
+    resize: none;
+}
+
+.distances td, .distances th {
+    max-width: none !important;
+}
+
+.distance_table {
+    max-width: 600px;
+    overflow: auto;
+}
+
+.distance_table_header {
+    padding-left: 10px;
+    text-align: left;
+}
+
+.download_area {
+    clear: both;
+    line-height: 140%;
+    padding-top: 10px;
+}
+
+.embedded_picture {
+    margin: 15px 20px 5px 0;
+}
+
+.entry {
+    border-bottom: 0;
+    font-family: serif;
+    font-size: 1.1em;
+    position: relative;
+}
+
+.entry_start {
+    border-bottom: 1px;
+    border-top: 0;
+    font-family: serif;
+    font-size: 1.1em;
+    position: relative;
+}
+
+.error_hint {
+    color: #5582BC;
+}
+
+.extra_large {
+    max-width: 800px !important;
+}
+
+.extra_small {
+    float: left;
+    padding-bottom: 15px;
+    padding-right: 30px;
+    max-width: 370px !important;
+}
+
+.final {
+    margin-bottom: 10px;
+}
+
+.final_result {
+    max-width: 246px;
+    overflow-x: scroll;
+    width: 244px;
+}
+
+.final_result td, .final_result th {
+    border-left: none;
+    border-right: none;
+    height: 24px;
+    padding-left: 10px;
+    width: 246px;
+}
+
+.final_result_footer td, .final_result_footer th {
+    border-top: none;
+    height: 24px;
+    padding-left: 10px;
+    text-align: left;
+    width: 233px;
+}
+
+.final_result_header {
+    vertical-align: top;
+    width: 246px;
+}
+
+.final_result_header td, .final_result_header th {
+    height: 24px;
+    padding-left: 10px;
+    text-align: left;
+    width: 246px;
+}
+
+.final_result_with_scrollbar {
+    border-bottom: 1px solid #a0a0a0;
+    border-left: 1px solid #a0a0a0;
+    border-right: 1px solid #a0a0a0;
+    margin-bottom: 0 !important;
+    margin-top: 0 !important;
+    width: 244px;
+}
+
+.gotoh_local_static_size {
+    height: 665px;
+    max-height: 665px;
+    min-height: 665px;
+}
+
+.gotoh_static_size {
+    height: 860px;
+    max-height: 860px;
+    min-height: 860px;
+}
+
+.gray {
+    color: lightgray;
+}
+
+.group_hint {
+    color: gray;
+    font-size: smaller;
+    padding-top: 10px;
+}
+
+.group input {
+    margin-left: 5px;
+    margin-right: 15px;
+}
+
+.hint {
+    border-width: 1px;
+    height: 25px !important;
+    padding-left: 8px;
+    text-align: left;
+}
+
+.hirschberg_static_size {  /* a way to avoid problems with MathJax */
+    /*
+    Hint: In Firefox also a margin has to be set.
+    Search for "_:-moz-tree-row(hover), .hirschberg_static_size"
+    in this file.
+    */
+    height: 1060px; /* without picture 925px */
+    max-height: 1060px;
+    min-height: 1060px;
+}
+
+.inner_column {
+    display: inline-block;
+    width: 100px;
+}
+
+.inner_row {
+    margin-bottom: 10px;
+}
+
+.input_heading {
+    margin-left: -15px;
+    margin-right: 20px;
+}
+
+.iteration {
+    clear: both;
+    padding-bottom: 30px;
+}
+
+.iteration_footer {
+    background-color: #ebebeb; /* Uni-Freiburg standard */
+    clear: both;
+    font-size: smaller;
+    padding: 5px;
+}
+
+.listed li {
+    margin: 10px 0;
+}
+
+.main_output {
+    padding-top: 5px;
+    max-width: 600px;
+    overflow: auto;
+}
+
+.merge_steps {
+    margin-bottom: 10px;
+}
+
+.merge_steps_footer th {
+    border-top: none;
+    height: 24px;
+    padding-left: 10px;
+    text-align: left;
+    width: 787px;
+}
+
+.more_left {
+    padding-left: 5px !important;
+}
+
+.newick_tree {
+    margin-bottom: 10px;
+}
+
+.outcome {
+    display: inline-block;
+    margin-bottom: 10px;
+    margin-top: 5px;
+    padding-left: 30px;
+}
+
+.output {
+    float: left;
+    margin-bottom: 10px;
+}
+
+.parameters {
+    line-height: 180%;
+    padding-bottom: 10px;
+}
+
+.pairwise_data_footer th {
+    border-top: none;
+    height: 24px;
+    padding-left: 10px;
+    text-align: left;
+    width: 787px;
+}
+
+.pairwise_data_header {
+    clear: left;
+    float: left;
+    vertical-align: top;
+}
+
+.pairwise_data_header th {
+    border-bottom: 0;
+    height: 24px;
+    padding-left: 10px;
+    text-align: left;
+    width: 254px;
+}
+
+.refined_alignment {
+    float: left;
+    margin-bottom: 10px;
+    margin-left: 30px;
+}
+
+.result {
+    max-width: 800px;
+    overflow-x: scroll;
+    width: 798px;
+}
+
+.result td, .result th {
+    border-left: none;
+    border-right: none; /* other possibilities does not look bug-like on tablets/smartphone browsers */
+}
+
+.result td, .result th,
+.result_header td, .result_header th {
+    height: 24px;
+    padding-left: 10px;
+    text-align: left;
+    width: 798px;
+}
+
+.result_categories {
+    max-height: 400px;
+    max-width: 800px;
+    overflow: scroll;
+    width: 798px;
+}
+
+.result_categories td,
+.result_categories th {
+    border: none;
+    height: 24px;
+    padding-left: 10px;
+    text-align: left;
+    vertical-align: top;
+    width: 798px; /* the only way it always works for a different number of columns */
+}
+
+.result_categories td {
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+.result_categories th {
+    border-bottom: 1px solid #a0a0a0;
+}
+
+.result_header {
+    vertical-align: top;
+    width: 800px;
+}
+
+.result_with_scrollbar {
+    border-bottom: 1px solid #a0a0a0;
+    border-left: 1px solid #a0a0a0;
+    border-right: 1px solid #a0a0a0;
+    margin-bottom: 0 !important;
+    margin-top: 0 !important;
+    width: 798px;
+}
+
+.results {
+    border: none;
+    clear: left;
+    float: left;
+    max-height: 200px;
+    max-width: 166px;
+    overflow-y: scroll;
+    vertical-align: top;
+}
+
+.results td, .results th {
+    border-left: none;
+    border-right: none; /* other possibilities does not look bug-like on tablets/smartphone browsers */
+    height: 24px;
+    padding-left: 10px;
+    text-align: left;
+    width: 156px;
+}
+
+.results_footer {
+    clear: left;
+    float: left;
+    vertical-align: top;
+}
+
+.results_footer td, .results_footer th,
+.results_header td, .results_header th {
+    height: 24px;
+    padding-left: 10px;
+    text-align: left;
+    width: 156px;
+}
+
+.results_header {
+    clear: left;
+    float: left;
+    vertical-align: top;
+}
+
+.results_with_scrollbar {
+    border-left: 1px solid #a0a0a0;
+    border-right: 1px solid #a0a0a0;
+    clear: left;
+    float: left;
+    margin-bottom: 0 !important;
+    margin-top: 0 !important;
+    width: 167px;
+}
+
+.scrollable {
+    margin-top: -10px;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.selectable_entry {
+    border-bottom: 0;
+    cursor: pointer;
+    font-family: serif;
+    font-size: 1.1em;
+    position: relative;
+}
+
+.selectable_entry_start {
+    border-bottom: 1px;
+    border-top: 0;
+    cursor: pointer;
+    font-family: serif;
+    font-size: 1.1em;
+    position: relative;
+}
+
+.selected {
+    background-color: #5582BC; /* Uni-Freiburg Logo blue */
+    color: white;
+}
+
+.selected_green {
+    background-color: #9ACD32;
+    color: white;
+}
+
+.selected_light_blue {
+    background-color: rgba(85, 130, 188, 0.18); /* Uni-Freiburg Logo blue */
+    color: white;
+}
+
+.selected_light_red {
+    background-color: #F5CAD1;
+    color: white;
+}
+
+.selected_red {
+    background-color: #E9909F;
+    color: white;
+}
+
+.selected_very_light_red {
+    background-color: #FFEFEC;
+    color: white;
+}
+
+.selector {
+    width: 230px;
+}
+
+.sequence {
+    width: 200px;
+}
+
+.sequence_multi {
+    width: 220px;
+}
+
+.smaller {
+    width: 224px !important;
+}
+
+.thick_line {
+    border-top: 2px solid #a0a0a0;
+}
+
+.top_border {
+    border-top: 1px solid #a0a0a0;
+}
+
+.waterman_smith_bayer_static_size {
+    height: 770px;
+    max-height: 770px;
+    min-height: 770px;
+}
+
+/*---- ID STYLING ----*/
+#algorithm_description .description {
+    display: inline-block;
+    line-height: 150%;
+    vertical-align: top;
+    width: 600px;
+}
+
+#algorithm_description .picture {
+    display: inline-block;
+    margin-left: 30px;
+    width: 150px;
+}
+
+#algorithm_input {
+    margin: 15px 0 15px 15px;
+}
+
+#algorithm_output {
+    margin-bottom: 15px;
+}
+
+#length {
+    width: 55px;
+}
+
+#overlay {
+    pointer-events: none;
+    position: absolute;
+    z-index: 4;
+}
+
+#page_contents {
+    background-color: #F2F3F1; /* Uni-Freiburg standard */
+    border-radius: 4px 4px 0 0;
+    margin: 50px auto; /* centering website */
+    min-height: 1500px; /* Uni-Freiburg standard */
+    overflow: auto;
+    padding-bottom: 30px;
+    text-align: justify;
+    width: 880px; /* Uni-Freiburg standard */
+}
+
+/*---- BROWSER SPECIFIC ----*/
+/* Microsoft */
+_:-ms-lang(x), _:-webkit-full-screen, input[type="number"]:focus {
+    outline: black solid 1px;
+}
+
+_:-ms-lang(x), _:-webkit-full-screen, input[type="text"]:focus {
+    outline: black solid 1px;
+}
+
+_:-ms-lang(x), _:-webkit-full-screen, .gotoh_local_static_size {
+    height: 685px;
+    max-height: 685px;
+    min-height: 685px;
+}
+
+_:-ms-lang(x), _:-webkit-full-screen, .gotoh_static_size {
+    height: 880px;
+    max-height: 880px;
+    min-height: 880px;
+}
+
+_:-ms-lang(x), _:-webkit-full-screen, .hirschberg_static_size {
+    height: 1100px;
+    max-height: 1100px;
+    min-height: 1100px;
+}
+
+_:-ms-lang(x), _:-webkit-full-screen, .waterman_smith_bayer_static_size {
+    height: 790px;
+    max-height: 790px;
+    min-height: 790px;
+}
+
+/* Mozilla Linux Ubuntu */
+_:-moz-tree-row(hover), .gotoh_local_static_size {
+	height: 730px;
+    max-height: 730px;
+    min-height: 730px;
+}
+
+_:-moz-tree-row(hover), .gotoh_static_size {
+    height: 980px;
+    max-height: 980px;
+    min-height: 980px;
+}
+
+_:-moz-tree-row(hover), .hirschberg_static_size {
+    height: 1200px;
+	max-height: 1200px;
+	min-height: 1200px;
+}
+
+_:-moz-tree-row(hover), .waterman_smith_bayer_static_size {
+    height: 890px;
+    max-height: 890px;
+    min-height: 890px;
+}
+
+/* Mozilla Windows 7/8/10 */
+@media (-moz-windows-theme) { 
+	input[type="number"]:focus {
+		outline: black solid 1px;
+	}
+	
+	input[type="text"]:focus {
+		outline: black solid 1px;
+	}
+	
+	.gotoh_local_static_size {
+		height: 705px !important;
+		max-height: 705px !important;
+		min-height: 705px !important;
+	}
+	
+	.gotoh_static_size {
+		height: 900px !important;
+		max-height: 900px !important;
+		min-height: 900px !important;
+	}
+
+	.hirschberg_static_size { 
+		height: 1100px !important;
+		max-height: 1100px !important;
+		min-height: 1100px !important;
+	} 
+	
+	.waterman_smith_bayer_static_size {
+		height: 810px !important;
+		max-height: 810px !important;
+		min-height: 810px !important;
+	}
+}
+

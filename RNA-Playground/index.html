@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Strict//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!-- Last updated 23rd August (02:00 PM) -->
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>RNA-related algorithms</title>
+
+<link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900' type='text/css'>
+<link rel="stylesheet" href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css">
+<link rel="stylesheet" href="css/index.css"/>
+
+<script src="js/libs/d3.min.js"></script>
+<script src="js/libs/knockout-3.4.0.js"></script>
+<script src="js/libs/FileSaver.min.js"></script>
+<script type="text/x-mathjax-config">MathJax.Hub.Config({displayAlign: "left", displayIndent: "30px", tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});</script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script src="js/libs/jquery.min.js"></script>
+<script src="js/nussinovmatrix.js"></script>
+<script src="js/nussinovmatrix4d.js"></script>
+<script src="js/scripts.js"></script>
+
+<!-- structure visualization via FORNA -->
+<script type="text/javascript" src="js/fornac/js/d3.js"></script>
+<script type="text/javascript" src="js/fornac/js/fornac.js"></script>
+<script type="text/javascript" src="js/fornac/js/FileSaver.min.js"></script>
+<link type="text/css" rel="stylesheet" href="js/fornac/css/fornac.css" media="screen" />
+<script type="text/javascript" src="js/visualize-forna.js"></script>
+
+<!-- RNA tools webserver styles -->
+<link rel="stylesheet" type="text/css" href="http://rna.informatik.uni-freiburg.de/resources/corporate-design.css"/>
+
+</head>
+
+<body onload="loadPage()">
+
+<!-- #########  PAGE MENU  ############## -->
+
+<!-- central content DIV of the RNA tools webserver -->
+<div class="content">
+    <!--<p>-->
+        <!--<select data-bind="options: Algorithms,-->
+                       <!--optionsText: 'algoName',-->
+                       <!--value: selectedAlgorithm,-->
+                       <!--optionsCaption: 'Choose...'"></select>-->
+    <!--</p>-->
+
+    <!--<div data-bind="visible: selectedAlgorithm"> &lt;!&ndash; Appears when you select something &ndash;&gt;-->
+        <!--You have chosen a country with population-->
+        <!--<span data-bind="text: selectedAlgorithm ? selectedAlgorithm.algoPage : 'unknown'"></span>.-->
+    <!--</div>-->
+    <select id="algoSelect" onchange="algoSel(this)">
+        <option selected="selected" disabled="disabled">Select an algorithm</option>
+        <option value="Nussinov.html">Nussinov - max. #bp structure</option>
+        <option value="counting.html">Structure Counting</option>
+        <option value="McCaskill.html">McCaskill - structure probabilities</option>
+        <option value="MEA.html">MEA structure</option>
+        <option value="co-folding.html">Co-folding interactions</option>
+        <option value="hybrid-only.html">hybrid-only interactions</option>
+        <option value="accessibility.html">accessibility-based interactions</option>
+
+    </select>
+
+    <div id="algopage">
+
+    </div>
+
+    <script type="application/javascript">
+        function loadPage(){
+            console.log("algo selected:", document.location);
+            var $_GET = {};
+
+            document.location.search.replace(/\??(?:([^=]+)=([^&]*)&?)/g, function () {
+                function decode(s) {
+                    return decodeURIComponent(s.split("+").join(" "));
+                }
+
+                $_GET[decode(arguments[1])] = decode(arguments[2]);
+            });
+
+//            console.log($_GET['id']);
+            $(algopage).load($_GET['id']);
+//            console.log("algo loaded");
+
+        };
+
+        function algoSel(algo){
+            window.location='index.html?id=' + algo.value;
+
+        };
+
+    </script>
+
+</div>
+
+
+</body>
+
+</html>
